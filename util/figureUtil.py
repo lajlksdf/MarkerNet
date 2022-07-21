@@ -18,6 +18,7 @@ def draw_figure(title, p1, p2: [], legends: [], name='Draw.jpg', x='x', y='y', m
     plt.figure('Draw')
     plt.xlabel(x)
     plt.ylabel(y)
+    plt.ylim([0,1])
     plt.title(title)
     for i in range(len(p2)):
         m = markers[i] if markers else 'o'
@@ -258,40 +259,6 @@ def draw_test_acc():
     plt.close()
 
 
-def draw_bar():
-    max_lst_of_all = {'FS': [29.7, 34.3, 29.7, 26.3],
-                      'DF': [36.0, 30.2, 27.3, 30.9],
-                      'F2F': [27.3, 32.3, 40.4, 27.8],
-                      'NT': [35.9, 29.9, 40.1, 33.3],
-                      'FSh': [26.3, 30.6, 28.6, 34.3],
-                      'DFD': [33.1, 27.0, 25.4, 30.7],
-                      'DAVIS': [41.3, 31.3, 41.1, 38.0],
-                      'VS': [27.5, 31.2, 43.2, 41.2]
-                      }
-
-    fig = plt.figure()
-    color = ['lightskyblue', 'lime', 'red', 'gold']  # 指定bar的颜色
-    key, keys = 1, []
-    for _, y in max_lst_of_all.items():
-        x = np.arange(key - 0.3, key + 0.31, 0.2)
-        for x1, y1, c1 in zip(x, y, color):
-            plt.bar(x1, y1, width=0.2, color=c1)
-        keys.append(key)
-        key += 1
-    plt.xticks(keys, max_lst_of_all.keys())
-
-    labels = ['None', 'Spatial', 'Frequency', 'Two']
-    patches = [mpatches.Patch(color=color[i], label="{:s}".format(labels[i])) for i in range(len(color))]
-    ax = plt.gca()
-    box = ax.get_position()
-    ax.set_position([box.x0, box.y0, box.width, box.height * 0.8])
-    # 下面一行中bbox_to_anchor指定了legend的位置
-    ax.legend(handles=patches, bbox_to_anchor=(0.95, 1.12), ncol=4)  # 生成legend
-
-    plt.savefig('bar.png')
-    plt.close()
-
-
 def analyze_df_c():
     legends = ['raw', 'c23', 'c40']
     raw = [0.867, 0.698, 0.644, 0.701, 0.477]
@@ -364,6 +331,17 @@ def analyze_vi():
                 name='vi.png')
 
 
+def analyze_c():
+    legends = ['raw', 'c23', 'c40']
+    raw = [0.867, 0.885, 0.864,  0.881]
+    c23 = [0.866, 0.884, 0.864, 0.880]
+    c40 = [0.866, 0.871, 0.856, 0.877]
+
+    params = [raw, c23, c40]
+    dises = ['DF', 'F2F', 'FS', 'NT']
+    draw_figure('', dises, params, legends, x='', y='mIoU',
+                name='c.png')
+
+
 if __name__ == '__main__':
-    draw_test_acc()
-    draw_test_iou()
+    analyze_vi()
