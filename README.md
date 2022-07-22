@@ -36,6 +36,18 @@ python train.py --local_rank=0 --set_path=x --type=inpainting --pretrained=x
 ```apache
 python test.py --local_rank=0 --set_path=x --type=inpainting --pretrained=x
 ```
+**Predict**
+
+```apache
+python predict_video.py --file_path=./asset/video-splicing/ --pretrained=./models/vstl/vstl.pth 
+```
+```apache
+python predict_video.py --file_path=./asset/video-inpainting/ --pretrained=./models/inpainting/in.pth 
+```
+```apache
+python predict_video.py --file_path=./asset/f2f/ --pretrained=./models/face2face/f2f.pth 
+```
+
 
 ## 🚀️ Downloads
 
